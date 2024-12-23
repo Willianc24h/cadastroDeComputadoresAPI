@@ -29,7 +29,7 @@ namespace CadastroDeComputadores.Service.CadastroService {
                 serviceResponse.Dados = _context.Cadastro.ToList();
 
             } catch (Exception ex) {
-                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Mensagem = "Cadastro criado com sucesso";
                 serviceResponse.Sucesso = false;
                 Console.WriteLine(ex.InnerException?.Message);
             }
@@ -52,7 +52,7 @@ namespace CadastroDeComputadores.Service.CadastroService {
                 _context.Cadastro.Remove(cadastro);
                 await _context.SaveChangesAsync();
             } catch (Exception ex) {
-                serviceResponse.Mensagem = ex.Message;
+                serviceResponse.Mensagem = "Deletado com sucesso";
                 serviceResponse.Sucesso = false;
                 Console.WriteLine(ex.InnerException?.Message);
             }
