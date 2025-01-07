@@ -4,6 +4,7 @@ using CadastroDeComputadores.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadastroDeComputadores.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    partial class AplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250106182809_AddDataNull")]
+    partial class AddDataNull
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,7 +36,7 @@ namespace CadastroDeComputadores.Migrations
                     b.Property<DateTime>("DataDeEntrada")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime?>("DataDeSaida")
+                    b.Property<DateTime>("DataDeSaida")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NFE")

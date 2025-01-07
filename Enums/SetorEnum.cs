@@ -8,8 +8,11 @@ namespace CadastroDeComputadores.Enums {
         CRF,
         DaVita,
         Dinamicar,
+        Droom,
         Financeiro,
         Operacoes,
+        Planejamento,
+        Qualidade,
         RH,
         TI
     }
