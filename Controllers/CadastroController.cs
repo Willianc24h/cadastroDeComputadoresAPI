@@ -29,17 +29,20 @@ namespace CadastroDeComputadores.Controllers {
             return Ok(await _cadastroInterface.CreateCadastro(newCadastro));
         }
 
-        [HttpPut]
-        public async Task<ActionResult<ServiceResponse<CadastroModel>>> UpdateCadastro(CadastroModel editCadastro) {
-            ServiceResponse<List<CadastroModel>> serviceResponse = await _cadastroInterface.UpdateCadastro(editCadastro);
+        [HttpPut("{Tag}")]
+        public async Task<ActionResult<ServiceResponse<CadastroModel>>> UpdateCadastro(string Tag, CadastroModel editCadastro) {
+            // Usando o Tag na URL para identificar o item
+            ServiceResponse<CadastroModel> serviceResponse = await _cadastroInterface.UpdateCadastro(Tag, editCadastro);
             return Ok(serviceResponse);
         }
 
-        [HttpPut("inativaCadastro")]
+
+        [HttpPut("inativa/{Tag}")]
         public async Task<ActionResult<ServiceResponse<CadastroModel>>> InativaCadastro(string Tag) {
             ServiceResponse<List<CadastroModel>> serviceResponse = await _cadastroInterface.InativaCadastro(Tag);
             return Ok(serviceResponse);
         }
+
 
         [HttpDelete("{Tag}")]
         public async Task<ActionResult<ServiceResponse<CadastroModel>>> DeleteCadastro(string Tag) {

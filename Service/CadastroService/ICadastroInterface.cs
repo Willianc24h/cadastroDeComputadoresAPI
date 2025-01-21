@@ -7,7 +7,7 @@ namespace CadastroDeComputadores.Service.CadastroService {
 
         Task<ServiceResponse<CadastroModel>> GetCadastrobyTag(string Tag);
 
-        Task<ServiceResponse<List<CadastroModel>>> UpdateCadastro(CadastroModel editCadastro);
+        Task<ServiceResponse<CadastroModel>> UpdateCadastro(string Tag, CadastroModel editCadastro);
 
         Task<ServiceResponse<List<CadastroModel>>> DeleteCadastro(string Tag);
 

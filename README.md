@@ -1,3 +1,6 @@
+Aqui está a parte de **login** adicionada ao formato para o seu arquivo `README.md`:
+
+```markdown
 # Cadastro de Computadores
 
 Este repositório contém a implementação de uma API para o gerenciamento de cadastros de computadores. A API inclui operações de criação, leitura, atualização e exclusão (CRUD), além de funcionalidades específicas como inativação de cadastros.
@@ -13,6 +16,7 @@ Este repositório contém a implementação de uma API para o gerenciamento de c
   - [Obter Cadastro por Tag](#obter-cadastro-por-tag)
   - [Inativar Cadastro](#inativar-cadastro)
   - [Atualizar Cadastro](#atualizar-cadastro)
+  - [Login](#login)
 - [Como Executar o Projeto](#como-executar-o-projeto)
 - [Contribuição](#contribuição)
 - [Licença](#licença)
@@ -182,6 +186,32 @@ CadastroDeComputadores
   }
   ```
 
+---
+
+### Login
+
+**Descrição:** Realiza o login do usuário, retornando um token de autenticação.
+
+- **URL:** `/api/login`
+- **Método:** `POST`
+- **Body:**
+  ```json
+  {
+    "usuario": "string",
+    "senha": "string"
+  }
+  ```
+- **Resposta:**
+  ```json
+  {
+    "sucesso": true,
+    "mensagem": "Login bem-sucedido",
+    "token": "string"
+  }
+  ```
+
+---
+
 ## Como Executar o Projeto
 
 1. Clone o repositório:
@@ -214,3 +244,8 @@ Contribuições são bem-vindas! Para contribuir, siga os passos abaixo:
 ## Licença
 
 Este projeto está licenciado sob a [MIT License](LICENSE).
+```
+
+---
+
+Agora, você tem a parte de **Login** incluída no seu `README.md`. Caso haja necessidade de ajustes, sinta-se à vontade para pedir!
