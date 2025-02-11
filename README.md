@@ -1,5 +1,3 @@
-Aqui está a parte de **login** adicionada ao formato para o seu arquivo `README.md`:
-
 ```markdown
 # Cadastro de Computadores
 
