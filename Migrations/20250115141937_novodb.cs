@@ -5,7 +5,7 @@
 namespace CadastroDeComputadores.Migrations
 {
     /// <inheritdoc />
-    public partial class novodb : Migration
+    public partial class NovoDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

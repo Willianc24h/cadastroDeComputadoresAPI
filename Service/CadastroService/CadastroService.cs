@@ -112,14 +112,17 @@ namespace CadastroDeComputadores.Service.CadastroService {
             ServiceResponse<List<CadastroModel>> serviceResponse = new ServiceResponse<List<CadastroModel>>();
 
             try {
-                CadastroModel cadastro = _context.Cadastro.FirstOrDefault(x => x.Tag == Tag);
+                CadastroModel? cadastro = _context.Cadastro.FirstOrDefault(x => x.Tag == Tag);
 
                 if (cadastro == null) {
                     serviceResponse.Dados = null;
                     serviceResponse.Mensagem = "Cadastro não encontrado";
                     serviceResponse.Sucesso = false;
                 }
-                cadastro.Ativo = false;
+                if (cadastro != null) {
+                    cadastro.Ativo = false;
+                }
+
                 //cadastro.DataDeSaida = DateTime.Now.ToLocalTime();
 
                 _context.Cadastro.Update(cadastro);

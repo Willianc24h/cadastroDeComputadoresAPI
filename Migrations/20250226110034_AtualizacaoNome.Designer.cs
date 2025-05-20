@@ -11,15 +11,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadastroDeComputadores.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20250131105039_adicionarColunaUsuario")]
-    partial class adicionarColunaUsuario
+    [Migration("20250226110034_AtualizacaoNome")]
+    partial class AtualizacaoNome
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.0")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);

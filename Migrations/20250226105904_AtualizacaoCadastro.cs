@@ -5,7 +5,7 @@
 namespace CadastroDeComputadores.Migrations
 {
     /// <inheritdoc />
-    public partial class adicionarColunaUsuario : Migration
+    public partial class AtualizacaoCadastro : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

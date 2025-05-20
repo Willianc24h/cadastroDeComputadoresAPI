@@ -11,9 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CadastroDeComputadores.Migrations
 {
     [DbContext(typeof(AplicationDbContext))]
-    [Migration("20250115141937_novodb")]
-    partial class novodb
-    {
+    [Migration("20250115141937_NovoDb")]
+    partial class NovoDb : Migration {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

@@ -1,29 +1,53 @@
 using Microsoft.AspNetCore.Mvc;
 using CadastroDeComputadores.Models;
-using System.Collections.Generic;
+using CadastroDeComputadores.Service;
+using CadastroDeComputadores.DataContext;
 using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Cryptography;
+using System.Text;
 
-namespace CadastroDeComputadores.Controllers {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class LoginController : ControllerBase {
-        private static readonly List<User> users = new List<User>
-        {
-            new User { Email = "user@example.com", Password = "123456" },
-            new User { Email = "admin@example.com", Password = "admin123" },
-            new User { Email = "tecnologia@central24horas.com.br", Password = "Ss70945358." },
-        };
+[Route("api/login")]
+[ApiController]
+public class LoginController : ControllerBase {
+    private readonly TokenService _tokenService;
+    private readonly AplicationDbContext _context;
 
-        [HttpPost]
-        public IActionResult Login([FromBody] User loginUser) {
-            var user = users.FirstOrDefault(u =>
-                u.Email == loginUser.Email && u.Password == loginUser.Password);
+    public LoginController(TokenService tokenService, AplicationDbContext context) {
+        _tokenService = tokenService;
+        _context = context;
+    }
 
-            if (user == null) {
-                return Unauthorized(new { message = "E-mail e/ou senhas inválidas" });
-            }
+    [HttpPost]
+    public async Task<IActionResult> Login([FromBody] LoginModel model) {
+        // Busca o usuário pelo e-mail
+        var user = await _context.Login.FirstOrDefaultAsync(u => u.Email == model.Email);
 
-            return Ok(new { token = "fake-jwt-token", message = "Login bem-sucedido!" });
+        if (user == null)
+            return Unauthorized(new { message = "Usuário ou senha inválidos." });
+
+        // Verifica se a senha fornecida bate com a senha armazenada (hash)
+        if (!VerifyPassword(model.Password, user.Password))
+            return Unauthorized(new { message = "Usuário ou senha inválidos." });
+
+        // Se passou na verificação, gera o token
+        var token = _tokenService.GenerateToken(user.Email);
+        return Ok(new { token });
+    Console.WriteLine($"Login recebido: {model.Email} - {model.Password}");
+    }
+
+    private bool VerifyPassword(string password, string storedHash) {
+        using (SHA256 sha256 = SHA256.Create()) {
+            byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            // Converte o hash para hexadecimal
+            StringBuilder builder = new StringBuilder();
+            foreach (byte b in hashedBytes)
+                builder.Append(b.ToString("x2"));
+
+            return builder.ToString() == storedHash;
         }
     }
+
 }

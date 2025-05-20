@@ -1,4 +1,5 @@
 ﻿using CadastroDeComputadores.models;
+using CadastroDeComputadores.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CadastroDeComputadores.DataContext {
@@ -10,6 +11,8 @@ namespace CadastroDeComputadores.DataContext {
         }
 
         public DbSet<CadastroModel> Cadastro { get; set; }
+        public DbSet<LoginModel> Login { get; set; }
+
 
     }
 }
