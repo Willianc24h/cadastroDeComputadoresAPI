@@ -137,26 +137,38 @@ namespace CadastroDeComputadores.Service.CadastroService {
 
         public async Task<ServiceResponse<CadastroModel>> UpdateCadastro(string Tag, CadastroModel editCadastro) {
             var serviceResponse = new ServiceResponse<CadastroModel>();
-            var cadastro = _context.Cadastro.FirstOrDefault(c => c.Tag == Tag);
 
-            if (cadastro == null) {
-                serviceResponse.Mensagem = "Cadastro não encontrado!";
+            try {
+                var cadastro = await _context.Cadastro.FirstOrDefaultAsync(c => c.Tag == Tag);
+
+                if (cadastro == null) {
+                    serviceResponse.Mensagem = "Cadastro não encontrado!";
+                    serviceResponse.Sucesso = false;
+                    return serviceResponse;
+                }
+
+                // Atualize os campos
+                cadastro.Setor = editCadastro.Setor;
+                cadastro.Tipo = editCadastro.Tipo;
+                cadastro.dataDeSaida = editCadastro.dataDeSaida; 
+                cadastro.dataDeSaida = editCadastro.dataDeSaida; 
+                cadastro.NFE = editCadastro.NFE;
+                cadastro.Usuario = editCadastro.Usuario;
+                // Atualize outros campos que quiser
+
+                _context.Cadastro.Update(cadastro);
+                await _context.SaveChangesAsync();
+
+                serviceResponse.Dados = cadastro;
+                serviceResponse.Sucesso = true;
+            } catch (Exception ex) {
                 serviceResponse.Sucesso = false;
-                return serviceResponse;
+                serviceResponse.Mensagem = $"Erro ao atualizar cadastro: {ex.Message}";
             }
 
-            // Atualize os campos do cadastro com os novos dados
-            cadastro.Setor = editCadastro.Setor;
-            cadastro.Tipo = editCadastro.Tipo;
-            cadastro.dataDeSaida = editCadastro.dataDeSaida;
-            cadastro.NFE = editCadastro.NFE;
-            // Adicione aqui os outros campos a serem atualizados
-
-            await _context.SaveChangesAsync();
-
-            serviceResponse.Dados = cadastro;
             return serviceResponse;
         }
+
 
     }
 }
