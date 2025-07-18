@@ -80,4 +80,3 @@ app.MapGet("/", () => "API protegida com JWT!").RequireAuthorization();
 app.MapControllers();
 
 app.Run();
-
