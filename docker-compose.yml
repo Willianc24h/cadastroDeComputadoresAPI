@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: cadastro_api
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Server=192.168.5.62;Database=CadastroDeComputadores;User Id=_CadastroDeComputadores;Password=s70945358.;TrustServerCertificate=True
+    networks:
+      - cadastro_net
+
+  db:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: cadastro_sql
+    environment:
+      - ACCEPT_EULA=Y
+      - SA_PASSWORD=s70945358.
+    ports:
+      - "1433:1433"
+    networks:
+      - cadastro_net
+    volumes:
+      - sqlvolume:/var/opt/mssql
+
+networks:
+  cadastro_net:
+
+volumes:
+  sqlvolume:

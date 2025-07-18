@@ -13,7 +13,13 @@ namespace CadastroDeComputadores.Service {
         }
 
         public string GenerateToken(string email) {
-            var key = Encoding.UTF8.GetBytes(_config["JwtSettings:Secret"]);
+            // Obtém a chave secreta do arquivo de configuração
+            var secretKey = _config["JwtSettings:Secret"];
+            if (string.IsNullOrEmpty(secretKey)) {
+                throw new InvalidOperationException("A chave secreta JWT não está configurada.");
+            }
+
+            var key = Encoding.UTF8.GetBytes(secretKey);
             var creds = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256);
 
             var token = new JwtSecurityToken(

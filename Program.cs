@@ -22,8 +22,6 @@ builder.Services.AddCors(options => {
 
 var jwtSecret = builder.Configuration.GetValue<string>("JwtSettings:Secret");
 
-
-
 if (string.IsNullOrEmpty(jwtSecret)) {
     throw new Exception("A variável de ambiente JWT_SECRET não está definida.");
 }

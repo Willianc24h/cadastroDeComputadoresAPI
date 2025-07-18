@@ -33,8 +33,11 @@ public class LoginController : ControllerBase {
 
         // Se passou na verificação, gera o token
         var token = _tokenService.GenerateToken(user.Email);
+
+        // Log do login recebido
+        Console.WriteLine($"Login recebido: {model.Email} - {model.Password}");
+
         return Ok(new { token });
-    Console.WriteLine($"Login recebido: {model.Email} - {model.Password}");
     }
 
     private bool VerifyPassword(string password, string storedHash) {
@@ -49,5 +52,4 @@ public class LoginController : ControllerBase {
             return builder.ToString() == storedHash;
         }
     }
-
 }
