@@ -13,29 +13,27 @@ using System.Text;
 public class LoginController : ControllerBase {
     private readonly TokenService _tokenService;
     private readonly AplicationDbContext _context;
+    private readonly ILogger<LoginController> _logger;
 
-    public LoginController(TokenService tokenService, AplicationDbContext context) {
+    public LoginController(TokenService tokenService, AplicationDbContext context, ILogger<LoginController> logger) {
         _tokenService = tokenService;
         _context = context;
+        _logger = logger;
     }
 
     [HttpPost]
     public async Task<IActionResult> Login([FromBody] LoginModel model) {
-        // Busca o usuário pelo e-mail
         var user = await _context.Login.FirstOrDefaultAsync(u => u.Email == model.Email);
 
         if (user == null)
             return Unauthorized(new { message = "Usuário ou senha inválidos." });
 
-        // Verifica se a senha fornecida bate com a senha armazenada (hash)
         if (!VerifyPassword(model.Password, user.Password))
             return Unauthorized(new { message = "Usuário ou senha inválidos." });
 
-        // Se passou na verificação, gera o token
         var token = _tokenService.GenerateToken(user.Email);
 
-        // Log do login recebido
-        Console.WriteLine($"Login recebido: {model.Email} - {model.Password}");
+        _logger.LogInformation("Login recebido para o e-mail: {Email}", model.Email);
 
         return Ok(new { token });
     }
